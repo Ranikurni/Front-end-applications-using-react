@@ -1,10 +1,19 @@
-import ReactFlow, { Background, Controls, applyNodeChanges, applyEdgeChanges, addEdge } from "reactflow";
-import type { NodeChange, EdgeChange, Connection } from "reactflow"; // type-only imports
+import ReactFlow, {
+  Background,
+  Controls,
+  applyNodeChanges,
+  applyEdgeChanges,
+  addEdge,
+  type NodeChange,
+  type EdgeChange,
+  type Connection,
+  type Node,
+} from "reactflow";
 import "reactflow/dist/style.css";
 import { useFlowStore } from "@/store/flowStore";
 
 export default function FlowCanvas() {
-  const { nodes, edges, setNodes, setEdges } = useFlowStore();
+  const { nodes, edges, setNodes, setEdges, setSelectedNode } = useFlowStore();
 
   const onNodesChange = (changes: NodeChange[]) =>
     setNodes(applyNodeChanges(changes, nodes));
@@ -15,6 +24,10 @@ export default function FlowCanvas() {
   const onConnect = (connection: Connection) =>
     setEdges(addEdge(connection, edges));
 
+  const onNodeClick = (_: React.MouseEvent, node: Node) => {
+    setSelectedNode(node);
+  };
+
   return (
     <ReactFlow
       nodes={nodes}
@@ -22,6 +35,7 @@ export default function FlowCanvas() {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      onNodeClick={onNodeClick}
       fitView
     >
       <Background />

@@ -11,7 +11,13 @@ interface FlowStore {
 }
 
 export const useFlowStore = create<FlowStore>((set) => ({
-  nodes: [],
+  nodes: [
+    {
+      id: "1",
+      data: { label: "Node 1" },
+      position: { x: 100, y: 100 },
+    },
+  ],
   edges: [],
   selectedNode: null,
   setNodes: (nodes) => set({ nodes }),

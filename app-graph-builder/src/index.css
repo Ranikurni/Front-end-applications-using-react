@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-background text-foreground;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
